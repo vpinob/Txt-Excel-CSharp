@@ -28,3 +28,10 @@ Sub Insertar_Tabla_Dinamica()
         .Position = 1
     End With
 End Sub
+
+Sub Valida_ID()
+'Ésta macro la utilicé para validar el número de ID. En Chile se utiliza ésta fórmula para validar el Rol Único Nacional/Tributario(RUN, RUT)
+
+    ActiveCell.FormulaR1C1 = _
+        "=LOOKUP(11 - MOD(SUMPRODUCT({3;2;7;6;5;4;3;2}, --MID(RC[-1], {1;2;3;4;5;6;7;8}, 1)), 11), {0;1;2;3;4;5;6;7;8;9;10;11}, {0;1;2;3;4;5;6;7;8;9;""K"";0})"
+End Sub
