@@ -14,17 +14,24 @@ namespace Programa
         {
             InitializeComponent();
         }
-
+        /*
+        *BotonSalir_Click()
+        */
         private void BotonSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        /*
+        *BotonCargar_Click()
+        */
         private void BotonCargar_Click(object sender, EventArgs e)
         {
             LoadFiles();
         }
-
+        /*
+        *BotonGuardar_Click()
+        *Check the first cell of the DataGridView1. If empty shows a message.
+        */
         private void BotonGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -37,7 +44,10 @@ namespace Programa
                 MessageBox.Show(this, "File not upload.", "Error", MessageBoxButtons.OK);
             }
         }
-
+        /*
+        *Read one/many file(s). File format ; delimited.
+        *The data is added to DataGridView1.
+        */
         private void LoadFiles()
         {
             string[] dataArray = null;
@@ -73,7 +83,10 @@ namespace Programa
                 
             } 
         }
-
+        /*
+        *Create a Excel file with 3 sheets.
+        *Saves the file in the directory and shows up the result to the user.
+        */
         private void CreateExcelFile()
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -86,7 +99,7 @@ namespace Programa
                 {
                     Visible = true
                 };
-
+                //Sheets names by default
                 workBook = ExcelApplication.Workbooks.Add();
                 workBook.Worksheets[1].Name = "Report";
                 workBook.Worksheets[2].Name = "Pivot Table";
@@ -109,15 +122,19 @@ namespace Programa
                                                 System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value);
             }
         }
-
+        /*
+        *Export all data from DataGridView1 into the Excel sheet.
+        */
         private void ExportToExcel(Microsoft.Office.Interop.Excel.Worksheet workSheet, DataGridView dataGridView)
         {
             int iCol = 0;
-
+            
+            //foreach: Get all columns header texts and insert into Excel as column titles.
             foreach (DataGridViewColumn column in dataGridView.Columns)
                 if (column.Visible)
                     workSheet.Cells[1, ++iCol] = column.HeaderText;
-
+                    
+            // Insert to Excel all data form DataGridView1
             for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
             {
                 for (int j = 0; j < dataGridView.Columns.Count; j++)
